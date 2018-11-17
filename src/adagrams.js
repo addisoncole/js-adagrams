@@ -108,6 +108,30 @@ const Adagrams = {
       score += Adagrams.scoreLetter(letter);
     });
     return score
+  },
+
+  highestScoreFrom(wordArr){
+    let highestScoringWord = { word: '', score: 0 }
+    wordArr.forEach(function (word){
+      // Select the word with best score
+      if(Adagrams.scoreWord(word) > highestScoringWord.score) {
+        highestScoringWord.word = word
+        highestScoringWord.score = Adagrams.scoreWord(word)
+      } else if (Adagrams.scoreWord(word) === highestScoringWord.score){
+        if (word.length === highestScoringWord.word.length){
+          return;
+        } else if (highestScoringWord.word.length === 10) {
+          return;
+        } else if (word.length === 10) {
+          highestScoringWord.word = word;
+          highestScoringWord.score = Adagrams.scoreWord(word);
+        } else if (word.length < highestScoringWord.word.length) {
+          highestScoringWord.word = word;
+          highestScoringWord.score = Adagrams.scoreWord(word);
+        }
+      }
+    });
+    return highestScoringWord
   }
 
 };
